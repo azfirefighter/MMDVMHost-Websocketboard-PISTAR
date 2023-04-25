@@ -33,6 +33,8 @@ otherwise, you're going to have to do a little editing in one of the python libr
 #### IN PROCESS
 
 * Try to hack together a simple install script
+   * IF YOU ENABLE THE INSTALLER: 
+     please be prepared to file bug reports into this repo (click "Issues" above and then "New issue").  This WILL require that you have a github account.  If you aren't willing to file bug reports, please do NOT enable the installer.  This means you'll have to do everything MANUALLY!
 
 #### CREDITS
 * This repo is based on the work of [@dg9vh](https://github.com/dg9vh) from his [MMDVMDash-Websockets repo](https://github.com/dg9vh/MMDVMHost-Websocketboard).

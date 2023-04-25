@@ -110,6 +110,8 @@ to have the logtailer in correct behaviour for reading this file.
 
 To configure log rotation in Linux take a look at https://www.tecmint.com/install-logrotate-to-manage-log-rotation-in-linux/.
 
+[RETURN TO THE DEFAULT README.md file](README.md)
+
 ## Credits
 
 *logtailer.py* is based on the work of http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/

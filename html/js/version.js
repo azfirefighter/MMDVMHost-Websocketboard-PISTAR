@@ -1,1 +1,1 @@
-var dashboard_version = "2022-01-28 19:14:32";
+var dashboard_version = "2023-04-25 12:00:00";

@@ -1,11 +1,22 @@
 #!/bin/bash
 clear
 
+##########################################################
+##   Comment out next 7 lines to enable the installer   ##
+## If you do, be prepared to file bug reports in github ##
+## by logging in, going to the repository, clicking on  ##
+## Issues and then New Issue.  Thanks for your help!    ##
+##########################################################
 echo "*************************************************************"
 echo "**   DO NOT USE ME YET.  I HAVEN'T BEEN TESTED VERY WELL!  **"
 echo "** You should also read through me before using me anyhow. **"
 echo "*************************************************************"
+echo "**  If you enable it, please file bug reports on github!! ***"
+echo "*************************************************************"
 exit
+######################################
+## End en-/dis-abling the installer ##
+######################################
 
 echo -e "Making the disk read/write...\n"
 rpi-rw

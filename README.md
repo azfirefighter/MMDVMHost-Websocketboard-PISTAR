@@ -35,5 +35,5 @@ otherwise, you're going to have to do a little editing in one of the python libr
 
 #### CREDITS
 * This repo is based on the work of [@dg9vh](https://github.com/dg9vh) from his [MMDVMDash-Websockets repo](https://github.com/dg9vh/MMDVMHost-Websocketboard).
-* logtailer.py is based on the work of [http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/](logtailer.py is based on the work of http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/).
+* logtailer.py is based on the work of [http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/](http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/).
 

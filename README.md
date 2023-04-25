@@ -16,11 +16,11 @@ otherwise, you're going to have to do a little editing in one of the python libr
     2. Become root by typing (sudo su)
     3. Change to the /usr/lib/python3/dist-packages/psutil directory (cd /usr/lib/python3/dist-packages/psutil)
     4. Edit the _pslinux.py file (nano _pslinux.py)
-        1. Scroll down 1200 lines or so until you reach a section that shows "# --- sensors"
-        2. Look for the line that says "current = (float(cat(path)) / 1000.0"  This should be around line 1210 or so
-        3. Change it to read "current1 = (float(cat(path)) / 1000.0" and press enter
-        4. USE SPACES to move the cursor until it's under the "c" from the line above
-        5. Add "current = float(current1 * 1.8 + 32)
+        a. Scroll down 1200 lines or so until you reach a section that shows "# --- sensors"
+        b. Look for the line that says "current = (float(cat(path)) / 1000.0"  This should be around line 1210 or so
+        c. Change it to read "current1 = (float(cat(path)) / 1000.0" and press enter
+        d. USE SPACES to move the cursor until it's under the "c" from the line above
+        e. Add "current = float(current1 * 1.8 + 32)
 
 
 #### DO NOT FORGET!!!!!

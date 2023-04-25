@@ -1,0 +1,64 @@
+#!/bin/bash
+clear
+echo -e "Making the disk read/write...\n"
+rpi-rw
+
+echo -e "Installing python3 goodies needed...\n"
+sudo apt install python3-websockets python3-pip
+sudo pip3 install ansi2html
+sudo apt install python3-gpizero
+sudo apt install python3-psutil
+sudo apt install python3-serial
+
+echo -e "Adding the mmdvm user to the system...\n"
+sudo adduser --system --no-createhome --group mmdvm
+echo -e "Adding the mmdvm user to the dialout group...\n"
+sudo usermod -a -G dialout mmdvm
+
+echo -e "Adding mmdvm to the sudoers file...\n"
+sudo cat "mmdvm ALL=(ALL) NOPASSWD: /usr/local/bin/MMDVMHost
+
+echo -e "Creating the /opt/MMDVMDash directory...\n"
+sudo mkdir /opt/MMDVMDash
+sudo chown -R mmdvm:mmdvm /opt/MMDVMDash
+
+echo -e "Moving the systemd files to /lib/systemd/system...\n"
+sudo mv systemd/*.service /lib/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable http.server logtailer
+
+echo -e "Adding the firewall rules needed to use MMDVMDash and activating them...\n"
+sudo mv ipv?.fw /root
+sudo /usr/local/sbin/pistar-firewall
+
+echo -e "Adding a blank DMRIds.dat file...\n"
+touch DMRIds.dat
+
+echo -e "Moving files to /opt/MMDVMDash...\n"
+sudo -u mmdvm * /opt/MMDVMDash
+
+echo -e "Updating DMRIds.dat...\n"
+sudo -u mmdvm /opt/MMDVMDash/scripts/DMRIDUpdate.sh
+
+echo -e "Editing /etc/mmdvmhost to increase logging to the required number...\n"
+sudo sed -i 's/FileLevel\=0/FileLevel\=2/g' /etc/mmdvmhost
+sudo sed -i 's/FileLevel\=1/FileLevel\=2/g' /etc/mmdvmhost
+sudo sed -i 's/FileLevel\=3/FileLevel\=2/g' /etc/mmdvmhost
+
+read -p "The default config for config.js will work fine.  Do you want to edit it (Y/N): " anykey
+case in anykey
+	Y | y)
+		sudo -u mmdvm nano /opt/MMDVMDash/html/js/config.js
+	;;
+	N | n)
+		echo -e "Go to your pi-star dashboard and make sure that DEBUG is set to 0 for all services...\n"
+		read -p "Press any key to continue: " somethingelse
+		echo -e "Restarting MMDVMHost...\n"
+                sudo systemctl restart mmdvmhost
+		echo -e "Firing up MMDVMDash...\n"
+		sudo systemctl start http.server logtailer
+		echo -e "DONE!  Now open your browser and enter the URL for your pi-star.  Be sure add \":8000\" to the address to load MMDVMDash!"
+                echo -e "If it's not working, you're on your own to figure out why.  Sorry.\n\n"
+	;;
+esac
+echo -e "Bye!\n\n"

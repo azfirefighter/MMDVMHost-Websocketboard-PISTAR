@@ -1,0 +1,9 @@
+MODE,TS,TG,LABEL,URL
+DMR,1,3104,Arizona Statewide,
+DMR,1,3176,Southwest Region,
+DMR,1,9911,US Emergency Communications,
+DMR,2,3156,Wyoming Statewide,
+DMR,2,31001,Net Talkgroup 1,
+DMR,2,31002,Net Talkgroup 2,
+DMR,2,31566,NE Wyoming Region,
+DMR,2,310999,APRS,

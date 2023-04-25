@@ -1,0 +1,4 @@
+iptables -A OUTPUT -p tcp --dport 8000 -j ACCEPT #  Allow MMDVMDash data out on its http.server
+iptables -A OUTPUT -p tcp --dport 5678 -j ACCEPT #  Allow MMDVMDash data out on its websocket
+iptables -A INPUT -p tcp --dport 8000 -j ACCEPT  #  Allow MMDVMDash data in to its http.server
+iptables -A INPUT -p tcp --dport 5678 -j ACCEPT  #  Allow MMDVMDash data out on its websocket

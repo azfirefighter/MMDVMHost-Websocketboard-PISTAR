@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+		<link rel="manifest" href="site.webmanifest">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="MMDVM-Dashboard by DG9VH">
+		<meta name="author" content="DG9VH">
+		<!-- So refresh works every time -->
+		<meta http-equiv="expires" content="0">
+		
+		<title>MMDVM-Dashboard by DG9VH</title>
+		
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<!-- Bootstrap core JavaScript -->
+		<script src="js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<!-- Datatables -->
+		<link rel="stylesheet" href="css/jquery.dataTables.min.css">
+		<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="js/version.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="metar.js/metar.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<link rel="stylesheet" href="css/tooltip.css">
+		<link href="open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+		<title>DG9VH - MMDVM-Dashboard by DG9VH</title>
+	</head>
+	<body>
+		<!-- Config structure modal -->
+		<div id="configstructmodal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Update your config.js please!</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>This text is shown to you, because you may use an old config.js-structure. Please open your config.js and compare it with the example-one in github-repository, add missing or change configuration options that has been renamed and add following line (or update existing one to this) into the config.js-file:</p>
+						<p>
+						var config_struc_ver = <script  type="text/javascript">document.write(act_config_struc_ver);</script>
+						
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+			<div class="container-fluid">
+				<span class="float:left">
+					<a class="navbar-brand" href="#">MMDVM-Dashboard by DG9VH</a>
+				</span>
+				<!-- Custom Headline Text -->
+				<span class="navbar-brand float:center"><script type="text/javascript">document.write(customHeadlineText);</script></span>
+				<!-- Custom Headline Text End -->
+				<span class="navbar-brand float:right">Websocket-Based</span>
+			</div>
+		</nav>
+		<!-- Custom Text -->
+		<script type="text/javascript">document.write(customText);</script>
+		<!-- Custom Text End -->
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item" name="currtx">
+				<a class="nav-link" id="currtx-tab" data-toggle="tab" href="#currtx" role="tab" aria-controls="currtx" aria-selected="false">Currently TXing</a>
+			</li>
+			<li class="nav-item" name="lastheard">
+				<a class="nav-link" id="lastheard-tab" data-toggle="tab" href="#lastheard" role="tab" aria-controls="lastheard" aria-selected="false">Last Heard</a>
+			</li>
+			<li class="nav-item" name="localheard">
+				<a class="nav-link" id="localheard-tab" data-toggle="tab" href="#localheard" role="tab" aria-controls="localheard" aria-selected="false">Local Heard</a>
+			</li>
+			<li class="nav-item" name="allheard">
+				<a class="nav-link" id="allheard-tab" data-toggle="tab" href="#allheard" role="tab" aria-controls="allheard" aria-selected="false">All Heard</a>
+			</li>
+			<li class="nav-item" name="qso">
+				<a class="nav-link" id="qso-tab" data-toggle="tab" href="#qso" role="tab" aria-controls="qso" aria-selected="false">In QSO</a>
+			</li>
+			<li class="nav-item" name="dapnet">
+				<a class="nav-link" id="dapnet-tab" data-toggle="tab" href="#dapnet" role="tab" aria-controls="dapnet" aria-selected="false">DAPNET Messages</a>
+			</li>
+			<li class="nav-item" name="sysinfo">
+				<a class="nav-link" id="sysinfo-tab" data-toggle="tab" href="#sysinfo" role="tab" aria-controls="sysinfo" aria-selected="false">System Info</a>
+			</li>
+			<li class="nav-item" name="services">
+				<a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Services Monitor</a>
+			</li>
+			<li class="nav-item" name="about">
+				<a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade" id="currtx" role="tabpanel" aria-labelledby="currtx-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">Currently TXing<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<!-- Tabelle -->
+						<div class="table-responsive">
+							<table id="currTX" class="table currTX table-condensed table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Mode</th>
+										<th>Callsign</th>
+										<th>Target</th>
+										<th>Source</th>
+										<th>Dur (s)</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="lastheard" role="tabpanel" aria-labelledby="lastheard-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">Last Heard List<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<!-- Tabelle -->
+						<div class="table-responsive">
+							<table id="lastHeard" class="table lastHeard table-condensed table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Time (<script language="JavaScript">
+										document.write(getTimezone());
+										</script>)</th>
+										<th>Mode</th>
+										<th>Callsign</th>
+										<th>Target</th>
+										<th>Source</th>
+										<th>Dur (s)</th>
+										<th>Loss</th>
+										<th>BER</th>
+										<th>QSO</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="localheard" role="tabpanel" aria-labelledby="localheard-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">Local Heard List<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<!-- Tabelle -->
+						<div class="table-responsive">
+							<table id="localHeard" class="table localHeard table-condensed table-striped table-hover">
+								<thead>
+									<tr>
+										
+										<th>Time (<script language="JavaScript">
+										document.write(getTimezone());
+										</script>)</th>
+										<th>Mode</th>
+										<th>Callsign</th>
+										<th>Target</th>
+										<th>Source</th>
+										<th>Dur (s)</th>
+										<th>BER</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="allheard" role="tabpanel" aria-labelledby="allheard-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">All Heard List<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<!-- Tabelle -->
+						<div class="table-responsive">
+							<table id="allHeard" class="table allHeard table-condensed table-striped table-hover">
+								<thead>
+									<tr>
+										
+										<th>Time (<script language="JavaScript">
+										document.write(getTimezone());
+										</script>)</th>
+										<th>Mode</th>
+										<th>Callsign</th>
+										<th>Target</th>
+										<th>Source</th>
+										<th>Dur (s)</th>
+										<th>Loss</th>
+										<th>BER</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="qso" role="tabpanel" aria-labelledby="qso-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">Currently in QSO<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<!-- Tabelle -->
+						<div class="table-responsive">
+							<button id="button">Delete selected row</button>
+							<table id="inQSO" class="table inQSO table-condensed table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Callsign</th>
+										<th>Added at (<script language="JavaScript">
+										document.write(getTimezone());
+										</script>)</th>
+										<th>Last TX at (<script language="JavaScript">
+										document.write(getTimezone());
+										</script>)</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="dapnet" role="tabpanel" aria-labelledby="dapnet-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">Dapnet-Messages<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<span class="badge badge-light" id="messagesinqueue">Messages in Queue: 0</span>
+						<!-- Tabelle -->
+						<div class="table-responsive">
+							<table id="dapnetmessages" class="table dapnetmessages table-condensed table-striped table-hover">
+								<thead>
+									<tr>
+										
+										<th>Time (<script language="JavaScript">
+										document.write(getTimezone());
+										</script>)</th>
+										<th>Slot</th>
+										<th>RIC</th>
+										<th>Message</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="sysinfo" role="tabpanel" aria-labelledby="sysinfo-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">System Info<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<b>CPU:</b>
+						<ul>
+							<li>Temperature: <span id="cputemp"></span> °F</li>
+							<li>Frequency: <span id="cpufrg"></span> MHz</li>
+							<li>Usage: <span id="cpuusage"></span> %</li>
+						</ul>
+						<b>Load:</b>
+						<ul>
+							<li>Last Minute: <span id="cpu_load1"></span></li>
+							<li>Last 5 Minutes: <span id="cpu_load5"></span></li>
+							<li>Last 15 Minutes: <span id="cpu_load15"></span></li>
+						</ul>
+						<b>Memory:</b>
+						<ul>
+							<li>Total: <span id="ram_total"></span> MB</li>
+							<li>Used: <span id="ram_used"></span> MB</li>
+							<li>Free: <span id="ram_free"></span> MB</li>
+							<li>Usage: <span id="ram_percent_used"></span> %</li>
+						</ul>
+						<b>Disk:</b>
+						<ul>
+							<li>Total: <span id="disk_total"></span> GB</li>
+							<li>Used: <span id="disk_used"></span> GB</li>
+							<li>Free: <span id="disk_free"></span> GB</li>
+							<li>Usage: <span id="disk_percent_used"></span> %</li>
+						</ul>
+						<b>Host-Program:</b>
+						<ul>
+							<li>Version: <span id="mmdvmhost_version">No Info Available</span>
+							<li>Built: <span id="built">No Info Available</span>
+							<li>Modem: <span id="modem">No Info Available</span>
+						</ul>
+						<b>Repeater:</b>
+						<ul>
+							<li>Callsign: <span id="callsign">No Info Available</span>
+							<li>DMR-ID: <span id="dmrid">No Info Available</span>
+							<li>TX Frequency: <span id="txqrg">No Info Available</span>
+							<li>RX Frequency: <span id="rxqrg">No Info Available</span>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">Services Monitor<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+					<span id="services_monitor"><ul class="services_monitor"></span>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+				<div class="panel panel-default">
+					<!-- Standard-Panel-Inhalt -->
+					<div class="panel-heading">About the Dashboard<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+					<div class="panel-body">
+						<p>This Dashboard uses websockets-technology to transfer data from host to client. It actually uses the logfile of the MMDVMHost by G4KLX to get the entries into the different tables.</p>
+						<p>If you have any ideas or issues feel free to leave a comment/issue in <a target="_new" href="https://github.com/dg9vh/MMDVMHost-Websocketboard">github</a>.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<div class="container">
+				<span class="text-muted">MMDVM-Dashboard Version <script>document.write(dashboard_version);</script> by DG9VH | <a href="https://github.com/dg9vh/MMDVMHost-Websocketboard">get your own</a> | Follow me <a href="https://radiosocial.de/@DG9VH">@DG9VH@radiosocial.de</a> | <a href="javascript:switchTheme();">switch theme</a></span>
+			</div>
+		</footer>
+		<script>
+			var t_ct = $('#currTX').DataTable( {
+				"order": [[ 0, "asc" ]]
+			} );
+			
+			var t_lh = $('#lastHeard').DataTable( {
+				"order": [[ 0, "desc" ]],
+				"columnDefs": [
+						{ className: "dt-nowrap", "targets": [ 0, 1, 2, 3, 7 ] }
+					],
+				"columnDefs": [
+						{
+							"targets": [ 8 ],
+							"visible": qso > 0
+						}
+					],
+				'rowCallback': function(row, data, index){
+					// Calculating LOSS
+					if(parseInt(data[6].substring(0, data[6].indexOf("%"))) <= 5){
+						$(row).find('td:eq(6)').css('color', 'none');
+					}
+					if(parseInt(data[6].substring(0, data[6].indexOf("%"))) > 5){
+						$(row).find('td:eq(6)').css('color', 'orange');
+					}
+					if(parseInt(data[6].substring(0, data[6].indexOf("%"))) > 15){
+						$(row).find('td:eq(6)').css('color', 'red');
+					}
+					
+					// Calculating BER
+					$(row).find('td:eq(7)').css('color', 'none');
+					if(parseFloat(data[7].substring(0, data[7].indexOf("%"))) <= 0.5){
+						$(row).find('td:eq(7)').css('color', 'none');
+					}
+					if(parseFloat(data[7].substring(0, data[7].indexOf("%"))) > 0.5){
+						$(row).find('td:eq(7)').css('color', 'orange');
+					}
+					if(parseFloat(data[7].substring(0, data[7].indexOf("%"))) > 2){
+						$(row).find('td:eq(7)').css('color', 'red');
+					}
+					
+					// Detecting TXing
+					if ( data[5] == "TXing" ) {        
+						$(row).addClass('red');
+					} else {
+						$(row).removeClass('red');
+					}
+				},
+				"autoWidth": false
+			} );
+			
+			var t_localh = $('#localHeard').DataTable( {
+				"order": [[ 0, "desc" ]],
+				"columnDefs": [
+						{ className: "dt-nowrap", "targets": [ 0, 1, 2, 3, 6 ] }
+					],
+				'rowCallback': function(row, data, index){
+					// Calculating BER
+					if(parseFloat(data[6].substring(0, data[6].indexOf("%"))) <= 0.5){
+						$(row).find('td:eq(6)').css('color', 'none');
+					}
+					if(parseFloat(data[6].substring(0, data[6].indexOf("%"))) > 0.5){
+						$(row).find('td:eq(6)').css('color', 'orange');
+					}
+					if(parseFloat(data[6].substring(0, data[6].indexOf("%"))) > 2){
+						$(row).find('td:eq(6)').css('color', 'red');
+					}
+				},
+				"autoWidth": false
+			} );
+			
+			var t_allh = $('#allHeard').DataTable( {
+				"order": [[ 0, "desc" ]],
+				"columnDefs": [
+						{ className: "dt-nowrap", "targets": [ 0, 1, 2, 3, 6 ] }
+					],
+				'rowCallback': function(row, data, index){
+					// Calculating LOSS
+					if(parseInt(data[6].substring(0, data[6].indexOf("%"))) <= 5){
+						$(row).find('td:eq(6)').css('color', 'none');
+					}
+					if(parseInt(data[6].substring(0, data[6].indexOf("%"))) > 5){
+						$(row).find('td:eq(6)').css('color', 'orange');
+					}
+					if(parseInt(data[6].substring(0, data[6].indexOf("%"))) > 15){
+						$(row).find('td:eq(6)').css('color', 'red');
+					}
+					
+					// Calculating BER
+					if(parseFloat(data[7].substring(0, data[7].indexOf("%"))) <= 0.5){
+						$(row).find('td:eq(7)').css('color', 'none');
+					}
+					if(parseFloat(data[7].substring(0, data[7].indexOf("%"))) > 0.5){
+						$(row).find('td:eq(7)').css('color', 'orange');
+					}
+					if(parseFloat(data[7].substring(0, data[7].indexOf("%"))) > 2){
+						$(row).find('td:eq(7)').css('color', 'red');
+					}
+				},
+				"autoWidth": false
+			} );
+			
+			var t_dapnet = $('#dapnetmessages').DataTable( {
+				"order": [[ 0, "desc" ]]
+			} );
+			
+			if (sysinfo > 0) {
+				var ws0 = new WebSocket("ws://" + window.location.hostname + ":5678/SYSINFO");
+				ws0.onmessage = function (event) {
+					getSysInfo(document, event);
+				};
+			}
+			
+			var ws1 = new WebSocket("ws://" + window.location.hostname + ":5678/MMDVM");
+			ws1.onmessage = function (event) {
+				if (lastheard > 0)
+					getLastHeard(document, event);
+				if (localheard > 0)
+					getLocalHeard(document, event);
+				if (allheard > 0)
+					getAllHeard(document, event);
+			};
+			
+			var t_qso = $('#inQSO').DataTable( {
+				"order": [[ 2, "asc" ]],
+				"autoWidth": false
+			} );
+			
+			$('#inQSO tbody').on( 'click', 'tr', function () {
+				if ( $(this).hasClass('selected') ) {
+					$(this).removeClass('selected');
+				} else {
+					t_qso.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+				}
+			} );
+			
+			$('#button').click( function () {
+				t_qso.row('.selected').remove().draw( false );
+			} );
+			
+			if (dapnet > 0) {
+				var ws2 = new WebSocket("ws://" + window.location.hostname + ":5678/DAPNET");
+				ws2.onmessage = function (event) {
+					getDapnetMessages(document, event);
+				};
+				t_dapnet.order( [ 0, 'desc' ] ).draw();
+			}
+			
+			if (services > 0) {
+				var ws3 = new WebSocket("ws://" + window.location.hostname + ":5678/SERVICES");
+				ws3.onmessage = function (event) {
+					getServicesStatus(document, event);
+				};
+			}
+			
+			checkConfigStructure();
+		</script>
+	</body>
+</html>

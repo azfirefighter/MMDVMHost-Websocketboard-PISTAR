@@ -1,5 +1,12 @@
 #!/bin/bash
 clear
+
+echo "*************************************************************"
+echo "**   DO NOT USE ME YET.  I HAVEN'T BEEN TESTED VERY WELL!  **"
+echo "** You should also read through me before using me anyhow. **"
+echo "*************************************************************"
+exit
+
 echo -e "Making the disk read/write...\n"
 rpi-rw
 

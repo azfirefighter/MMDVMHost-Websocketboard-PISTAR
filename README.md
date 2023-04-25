@@ -21,12 +21,14 @@ otherwise, you're going to have to do a little editing in one of the python libr
          3. Change it to read "current1 = (float(cat(path)) / 1000.0" and press enter
          4. USE SPACES to move the cursor until it's under the "c" from the line above
          5. Add "current = float(current1 * 1.8 + 32)
+* You shouldn't have to edit the logtailer.ini file as it's already setup for pi-star
+* You shouldn't have to edit the html/js/config.js as it's already setup for pi-star
 
+[Read the original README file](README-original.md)
 
 #### DO NOT FORGET!!!!!
 
 * Edit the data/TG_List.csv file to reflect the talkgroups that you have enabled on your pi-star
-* Edit the html/js/config.js file as described in [README-original.md](README-original.md).
 
 #### IN PROCESS
 
@@ -36,3 +38,6 @@ otherwise, you're going to have to do a little editing in one of the python libr
 * This repo is based on the work of [@dg9vh](https://github.com/dg9vh) from his [MMDVMDash-Websockets repo](https://github.com/dg9vh/MMDVMHost-Websocketboard).
 * logtailer.py is based on the work of [http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/](http://shzhangji.com/blog/2017/07/15/log-tailer-with-websocket-and-python/).
 
+#### KUDOS
+* If you've found this useful, drop me a line and let me know.
+* Be sure to thank [@dg9vh](https://github.com/dg9vh) for his original work!
